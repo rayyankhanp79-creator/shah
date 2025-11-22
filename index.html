@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxurious Perfume - The Exquisite Collection</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for high-quality icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configure Tailwind to use custom colors matching the image theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-green': '#1A3B2B', // Main dark green
+                        'gold': '#D4AF37', // Gold accent color
+                        'cream-bg': '#F8F6F0', // Light background color (Off-white)
+                        'mid-green': '#2E6347', // Hero section accent green
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for background effects and font smoothing */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Specific gradient/pattern for the hero section, mimicking the image */
+        .hero-bg {
+            /* Ensures the hero is deep green */
+            background: linear-gradient(135deg, rgba(26, 59, 43, 1) 0%, rgba(26, 59, 43, 1) 50%, rgba(46, 99, 71, 1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: url("https://placehold.co/1000x1000/1A3B2B/2E6347?text=Luxury+Pattern");
+            background-size: cover;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+        
+        /* The three product cards have a dark green, artistic background */
+        .product-card-bg {
+            background-color: #1A3B2B;
+            /* Optional: Add a subtle texture overlay */
+            background-image: url("https://placehold.co/500x500/1A3B2B/2E6347?text=Textured+BG");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-image {
+            /* Placeholder for the perfume bottle image */
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
+
+    </style>
+</head>
+<!-- UPDATED: Changed overall body background back to cream-bg and default text back to dark gray -->
+<body class="bg-cream-bg text-gray-800">
+
+    <!-- Header / Navbar (Remains Deep Green) -->
+    <header class="bg-deep-green text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <!-- Logo/Brand Name (Left) -->
+            <div class="text-lg font-extrabold tracking-widest uppercase text-gold">
+                PERFUME
+            </div>
+
+            <!-- Main Navigation (Mid-Center - Desktop Only) -->
+            <nav class="hidden lg:flex space-x-8 text-sm font-semibold tracking-wider">
+                <a href="#" class="hover:text-gold transition duration-300 border-b-2 border-gold pb-1">HOME</a>
+                <a href="#" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">SIGNATURE</a>
+                <a href="#" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">BEST SELLING</a>
+                <a href="#" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">ABOUT</a>
+                <a href="#" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">ALL</a>
+            </nav>
+
+            <!-- Utility Pages & Social Media (Top Right) -->
+            <div class="flex items-center space-x-6">
+                <!-- Utility Icons (Cart, Account, Search) -->
+                <div class="flex space-x-4">
+                    <button aria-label="Cart" class="text-white hover:text-gold transition duration-300" onclick="alert('Navigating to Cart Page')">
+                        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    </button>
+                    <button aria-label="Account" class="text-white hover:text-gold transition duration-300" onclick="alert('Navigating to Account Page')">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </button>
+                    <button aria-label="Search" class="text-white hover:text-gold transition duration-300" onclick="alert('Opening Search Modal')">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <!-- Social Media Icons (F, T, I from image) -->
+                <div class="hidden sm:flex space-x-3 text-sm">
+                    <a href="#" aria-label="Facebook" class="hover:text-gold transition duration-300">F</a>
+                    <a href="#" aria-label="Twitter" class="hover:text-gold transition duration-300">T</a>
+                    <a href="#" aria-label="Instagram" class="hover:text-gold transition duration-300">I</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button class="lg:hidden text-white hover:text-gold" aria-label="Open menu" onclick="toggleMobileMenu()">
+                 <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Dropdown (Remains Deep Green) -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-deep-green text-white pb-4 shadow-lg">
+        <nav class="flex flex-col space-y-1 px-4 text-sm font-semibold tracking-wider">
+            <!-- Ensure HOME link has the active gold border like in the header -->
+            <a href="#" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-gold">HOME</a>
+            <a href="#" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">SIGNATURE</a>
+            <a href="#" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">BEST SELLING</a>
+            <a href="#" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">ABOUT</a>
+            <a href="#" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">ALL</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section (Remains Deep Green) -->
+    <section class="hero-bg py-16 md:py-24 text-white relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 items-center gap-10">
+            
+            <!-- Text Content -->
+            <div class="space-y-6 md:space-y-8">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-serif font-extrabold leading-tight tracking-tighter max-w-lg">
+                    The Exquisite Brand's Essence
+                </h1>
+                <p class="text-lg text-gray-300 max-w-md">
+                    Dive into our new, refined collection. Immerse yourself in the majestic blend of rare oils, crafted to awaken the senses and leave an everlasting impression.
+                </p>
+                
+                <!-- Buttons -->
+                <div class="flex space-x-4 pt-4">
+                    <button class="px-8 py-3 bg-gold text-deep-green font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition duration-300 uppercase text-sm">
+                        EXPLORE
+                    </button>
+                    <button class="px-8 py-3 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-deep-green transition duration-300 uppercase text-sm">
+                        DISCOVER
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Image Container -->
+            <div class="relative flex justify-center md:justify-end mt-12 md:mt-0">
+                <!-- Large green border frame -->
+                <div class="absolute inset-0 w-3/4 h-full border-2 border-mid-green transform translate-x-12 -translate-y-4 hidden sm:block rounded-md"></div>
+                
+                <!-- Perfume Bottle Placeholder -->
+                <div class="relative z-20 max-w-xs w-full">
+                     <!-- This image placeholder mimics the dark bottle with gold cap -->
+                    <img 
+                        src="https://placehold.co/300x450/1A3B2B/D4AF37?text=MON+PARFUME%0AFor+Him" 
+                        alt="Signature Mon Parfume Bottle" 
+                        class="product-image w-full h-auto rounded-lg shadow-2xl border-2 border-gold/50"
+                        onerror="this.onerror=null; this.src='https://placehold.co/300x450/1A3B2B/D4AF37?text=MON+PARFUME%0AFor+Him'"
+                    />
+                     <!-- Decorative gold flakes/leaf pattern behind the bottle, mimicking the image -->
+                    <div class="absolute -bottom-10 -left-10 text-gold opacity-50 text-6xl transform rotate-12 pointer-events-none">
+                        &ast; &ast;
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Product Showcase Section (UPDATED: Changed back to Cream-bg) -->
+    <section class="py-16 md:py-24 bg-cream-bg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title (UPDATED: Changed text color to deep-green for contrast) -->
+            <h2 class="text-center text-xl sm:text-2xl font-extrabold tracking-widest uppercase text-deep-green mb-12">
+                THE GOLDEN ERA OF PERFUME.
+            </h2>
+
+            <!-- Product Cards Grid -->
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Product 1 (No change needed, cards are already dark) -->
+                <div class="product-card-bg rounded-xl overflow-hidden shadow-2xl group hover:shadow-deep-green/50 transition duration-500">
+                    <div class="p-4 flex flex-col items-center justify-center h-full">
+                        <img 
+                            src="https://placehold.co/300x300/1A3B2B/D4AF37?text=Night+Veil" 
+                            alt="Night Veil Perfume" 
+                            class="product-image w-full max-w-[200px] h-auto object-cover transform group-hover:scale-[1.05] transition duration-500"
+                        />
+                        <div class="pt-6 text-center">
+                            <h3 class="text-lg font-semibold text-gold tracking-wider">Night Veil</h3>
+                            <p class="text-gray-300 text-sm">$189.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card-bg rounded-xl overflow-hidden shadow-2xl group hover:shadow-deep-green/50 transition duration-500">
+                     <div class="p-4 flex flex-col items-center justify-center h-full">
+                        <img 
+                            src="https://placehold.co/300x300/1A3B2B/D4AF37?text=Green+Lust" 
+                            alt="Green Lust Perfume" 
+                            class="product-image w-full max-w-[200px] h-auto object-cover transform group-hover:scale-[1.05] transition duration-500"
+                        />
+                        <div class="pt-6 text-center">
+                            <h3 class="text-lg font-semibold text-gold tracking-wider">Green Lust</h3>
+                            <p class="text-gray-300 text-sm">$210.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card-bg rounded-xl overflow-hidden shadow-2xl group hover:shadow-deep-green/50 transition duration-500">
+                     <div class="p-4 flex flex-col items-center justify-center h-full">
+                        <img 
+                            src="https://placehold.co/300x300/1A3B2B/D4AF37?text=The+Velvet" 
+                            alt="The Velvet Perfume" 
+                            class="product-image w-full max-w-[200px] h-auto object-cover transform group-hover:scale-[1.05] transition duration-500"
+                        />
+                        <div class="pt-6 text-center">
+                            <h3 class="text-lg font-semibold text-gold tracking-wider">The Velvet</h3>
+                            <p class="text-gray-300 text-sm">$175.00</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Carousel Dots (UPDATED: Changed dot color to deep-green for contrast) -->
+            <div class="flex justify-center space-x-2 mt-12">
+                <span class="w-2 h-2 bg-deep-green rounded-full opacity-75"></span>
+                <span class="w-2 h-2 bg-deep-green rounded-full opacity-30"></span>
+                <span class="w-2 h-2 bg-deep-green rounded-full opacity-30"></span>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Footer Section (Remains Deep Green) -->
+    <footer class="bg-deep-green text-gray-300 py-12 md:py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-8 mb-8">
+                
+                <!-- Column 1: Brand Info -->
+                <div>
+                    <h3 class="text-xl font-extrabold tracking-widest uppercase text-gold mb-4">PERFUME</h3>
+                    <p class="text-sm">Luxury scents crafted for timeless elegance and lasting impression.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-white uppercase mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-gold transition duration-300">Best Selling</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Signature Collection</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">All Products</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Gift Sets</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Company -->
+                <div>
+                    <h4 class="font-semibold text-white uppercase mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-gold transition duration-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Careers</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Press</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Terms & Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact & Social -->
+                <div>
+                    <h4 class="font-semibold text-white uppercase mb-4">Connect</h4>
+                    <p class="text-sm mb-4">Email: info@perfume.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" aria-label="Facebook" class="text-gold hover:text-white transition duration-300"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="#" aria-label="Twitter" class="text-gold hover:text-white transition duration-300"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" aria-label="Instagram" class="text-gold hover:text-white transition duration-300"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 PERFUME. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons and JavaScript for mobile menu -->
+    <script>
+        lucide.createIcons();
+        
+        // Function to toggle the mobile menu visibility
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
