@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - The PERFUME Legacy</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for high-quality icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configure Tailwind to use custom colors matching the image theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-green': '#1A3B2B', // Main dark green
+                        'gold': '#D4AF37', // Gold accent color
+                        'cream-bg': '#FAF8F0', // Warmer off-white/cream color
+                        'mid-green': '#2E6347', // Accent green
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for background effects and font smoothing */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Highlight for the active cart icon in the header */
+        .cart-active-icon {
+            /* Example of subtle active state for an icon */
+            color: #D4AF37; /* Gold color */
+            border: 2px solid #D4AF37; 
+            border-radius: 50%; 
+            padding: 4px;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        .cart-item-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        .cart-item-list::-webkit-scrollbar-thumb {
+            background-color: #2E6347;
+            border-radius: 10px;
+        }
+        .cart-item-list::-webkit-scrollbar-track {
+            background-color: #F0F0F0;
+        }
+    </style>
+</head>
+<body class="bg-cream-bg text-gray-800">
+
+    <!-- Header / Navbar (Deep Green) -->
+    <header class="bg-deep-green text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <!-- Logo/Brand Name (Left) -->
+            <div class="text-lg font-extrabold tracking-widest uppercase text-gold">
+                PERFUME
+            </div>
+
+            <!-- Main Navigation (Mid-Center - Desktop Only) -->
+            <nav class="hidden lg:flex space-x-8 text-sm font-semibold tracking-wider">
+                <a href="index.html" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">HOME</a>
+                <a href="signature.html" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">SIGNATURE</a>
+                <a href="bestselling.html" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">BEST SELLING</a>
+                <a href="about.html" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">ABOUT</a>
+                <a href="all.html" class="hover:text-gold transition duration-300 border-b-2 border-transparent pb-1">ALL</a>
+            </nav>
+
+            <!-- Utility Pages & Social Media (Top Right) -->
+            <div class="flex items-center space-x-6">
+                <!-- Utility Icons (Cart, Account, Search) -->
+                <div class="flex space-x-4">
+                    <!-- Cart icon is highlighted as active page -->
+                    <a href="#" aria-label="Cart" class="text-white hover:text-gold transition duration-300">
+                        <i data-lucide="shopping-cart" class="w-5 h-5 cart-active-icon"></i>
+                    </a>
+                    <button aria-label="Account" class="text-white hover:text-gold transition duration-300" onclick="alert('Navigating to Account Page')">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </button>
+                    <button aria-label="Search" class="text-white hover:text-gold transition duration-300" onclick="alert('Opening Search Modal')">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <!-- Social Media Icons (F, T, I from image) -->
+                <div class="hidden sm:flex space-x-3 text-sm">
+                    <a href="#" aria-label="Facebook" class="hover:text-gold transition duration-300">F</a>
+                    <a href="#" aria-label="Twitter" class="hover:text-gold transition duration-300">T</a>
+                    <a href="#" aria-label="Instagram" class="hover:text-gold transition duration-300">I</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button class="lg:hidden text-white hover:text-gold" aria-label="Open menu" onclick="toggleMobileMenu()">
+                 <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Dropdown (Deep Green) -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-deep-green text-white pb-4 shadow-lg">
+        <nav class="flex flex-col space-y-1 px-4 text-sm font-semibold tracking-wider">
+            <a href="index.html" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">HOME</a>
+            <a href="signature.html" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">SIGNATURE</a>
+            <a href="bestselling.html" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">BEST SELLING</a>
+            <a href="about.html" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">ABOUT</a>
+            <a href="all.html" class="block py-2 px-3 hover:bg-mid-green rounded-md transition duration-300 border-l-4 border-transparent">ALL</a>
+        </nav>
+    </div>
+
+    <!-- Main Cart Content -->
+    <main class="py-16 md:py-20 bg-cream-bg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            
+            <!-- Hero Header -->
+            <h1 class="text-5xl font-extrabold text-deep-green text-center mb-10">
+                Your Shopping Bag
+            </h1>
+
+            <!-- Cart Grid Layout (Items List and Summary) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Column 1: Cart Items List -->
+                <section class="lg:col-span-2 bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 cart-item-list max-h-[700px] overflow-y-auto">
+                    <h2 class="text-2xl font-bold text-deep-green mb-6 border-b pb-3">
+                        Items in Cart (2)
+                    </h2>
+
+                    <!-- Cart Item 1: Dusk Amber -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center py-4 border-b">
+                        <img 
+                            src="https://placehold.co/100x120/1A3B2B/FAF8F0?text=Dusk" 
+                            alt="Dusk Amber Perfume" 
+                            class="w-20 h-24 object-cover rounded-lg mr-6 mb-4 sm:mb-0"
+                        />
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-semibold text-deep-green">Dusk Amber (50ml)</h3>
+                            <p class="text-sm text-gray-500 mb-2">Woody, Spice - Signature EDP</p>
+                            <div class="flex items-center space-x-4">
+                                <label for="qty-1" class="text-sm text-gray-600">Qty:</label>
+                                <input id="qty-1" type="number" value="1" min="1" class="w-16 p-2 border rounded-md text-center focus:border-gold focus:ring-1 focus:ring-gold transition">
+                                <p class="text-lg font-bold text-deep-green ml-auto">$180.00</p>
+                            </div>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700 transition duration-300 mt-4 sm:mt-0 sm:ml-6" aria-label="Remove item" onclick="alert('Item removed!')">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Cart Item 2: White Jasmine -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center py-4 border-b">
+                        <img 
+                            src="https://placehold.co/100x120/1A3B2B/FAF8F0?text=Jasmine" 
+                            alt="White Jasmine Perfume" 
+                            class="w-20 h-24 object-cover rounded-lg mr-6 mb-4 sm:mb-0"
+                        />
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-semibold text-deep-green">White Jasmine (100ml)</h3>
+                            <p class="text-sm text-gray-500 mb-2">Light, Floral - Limited Edition</p>
+                            <div class="flex items-center space-x-4">
+                                <label for="qty-2" class="text-sm text-gray-600">Qty:</label>
+                                <input id="qty-2" type="number" value="2" min="1" class="w-16 p-2 border rounded-md text-center focus:border-gold focus:ring-1 focus:ring-gold transition">
+                                <p class="text-lg font-bold text-deep-green ml-auto">$300.00</p>
+                            </div>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700 transition duration-300 mt-4 sm:mt-0 sm:ml-6" aria-label="Remove item" onclick="alert('Item removed!')">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Empty Cart Message Placeholder -->
+                    <!-- This would be conditionally rendered if the cart was empty -->
+                    <!-- 
+                    <div class="text-center py-12">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto text-gold mb-4"></i>
+                        <p class="text-lg text-gray-600">Your bag is empty. Explore our collection!</p>
+                        <a href="all.html" class="mt-4 inline-block text-gold hover:text-deep-green font-semibold underline">Start Shopping</a>
+                    </div> 
+                    -->
+                    
+                </section>
+
+                <!-- Column 2: Order Summary -->
+                <section class="lg:col-span-1 bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 h-fit sticky top-4">
+                    <h2 class="text-2xl font-bold text-deep-green mb-6 border-b pb-3">
+                        Order Summary
+                    </h2>
+
+                    <div class="space-y-4 text-gray-700">
+                        <!-- Subtotal -->
+                        <div class="flex justify-between">
+                            <span class="text-lg">Subtotal:</span>
+                            <span class="text-lg font-semibold">$480.00</span>
+                        </div>
+                        
+                        <!-- Shipping -->
+                        <div class="flex justify-between">
+                            <span class="text-lg">Shipping:</span>
+                            <span class="text-lg font-semibold text-mid-green">FREE</span>
+                        </div>
+
+                        <!-- Tax Estimate -->
+                        <div class="flex justify-between border-b pb-4">
+                            <span class="text-lg">Taxes (Estimated):</span>
+                            <span class="text-lg font-semibold">$24.00</span>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="flex justify-between pt-4">
+                            <span class="text-2xl font-bold text-deep-green">Order Total:</span>
+                            <span class="text-3xl font-extrabold text-gold">$504.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button class="w-full mt-8 py-4 bg-gold text-deep-green font-extrabold text-xl rounded-lg shadow-md hover:bg-opacity-90 transition duration-300 uppercase tracking-wider" onclick="alert('Proceeding to Checkout...')">
+                        Secure Checkout
+                    </button>
+                    
+                    <!-- Continue Shopping Link -->
+                    <a href="all.html" class="block text-center mt-4 text-deep-green hover:text-gold font-semibold transition duration-300">
+                        <i data-lucide="chevron-left" class="w-4 h-4 inline mr-1"></i> Continue Shopping
+                    </a>
+                </section>
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- Footer Section (Deep Green) -->
+    <footer class="bg-deep-green text-gray-300 py-12 md:py-16 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-8 mb-8">
+                
+                <!-- Column 1: Brand Info -->
+                <div>
+                    <h3 class="text-xl font-extrabold tracking-widest uppercase text-gold mb-4">PERFUME</h3>
+                    <p class="text-sm">Luxury scents crafted for timeless elegance and lasting impression.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-white uppercase mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="bestselling.html" class="hover:text-gold transition duration-300">Best Selling</a></li>
+                        <li><a href="signature.html" class="hover:text-gold transition duration-300">Signature Collection</a></li>
+                        <li><a href="all.html" class="hover:text-gold transition duration-300">All Products</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Gift Sets</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Company -->
+                <div>
+                    <h4 class="font-semibold text-white uppercase mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-gold transition duration-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Careers</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Press</a></li>
+                        <li><a href="#" class="hover:text-gold transition duration-300">Terms & Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact & Social -->
+                <div>
+                    <h4 class="font-semibold text-white uppercase mb-4">Connect</h4>
+                    <p class="text-sm mb-4">Email: info@perfume.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" aria-label="Facebook" class="text-gold hover:text-white transition duration-300"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="#" aria-label="Twitter" class="text-gold hover:text-white transition duration-300"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" aria-label="Instagram" class="text-gold hover:text-white transition duration-300"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 PERFUME. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons and JavaScript for mobile menu -->
+    <script>
+        lucide.createIcons();
+        
+        // Function to toggle the mobile menu visibility
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
